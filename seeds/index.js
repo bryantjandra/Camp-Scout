@@ -2,6 +2,7 @@ const cities = require("./cities")
 const mongoose = require("mongoose");
 const Campground = require("../models/campground");
 const {places, descriptors} = require("./seedHelpers.js");
+const axios = require("axios")
 
 mongoose.connect('mongodb://127.0.0.1:27017/camp-scout',{
     useNewUrlParser: true,
@@ -15,19 +16,42 @@ db.once("open", ()=>{
 })
 
 const sample = (array) => array[Math.floor(Math.random()*array.length)]
-
-
-const seedDB = async () => {
-    await Campground.deleteMany({});
-    for (let i = 0; i < 50; i++) {
-        const random1000 = Math.floor(Math.random() * 1000);
-        const camp = new Campground({
-            location: `${cities[random1000].city}, ${cities[random1000].state}`,
-            title: `${sample(descriptors)} ${sample(places)}`
-        })
-        await camp.save();
+async function seedImg() {
+    try {
+      const resp = await axios.get('https://api.unsplash.com/photos/random', {
+        params: {
+          client_id: 'pdAIMOq7qNaRK67COaGMo_iHaZ6B15oDCyc3WGX8_HU',
+          collections: 1114848,
+        },
+      })
+      return resp.data.urls.small
+    } catch (err) {
+      console.error(err)
     }
-}
+  }
+
+  const seedDB = async () => {
+    await Campground.deleteMany({})
+    for (let i = 0; i < 20; i++) {
+      // setup
+      const placeSeed = Math.floor(Math.random() * places.length)
+      const descriptorsSeed = Math.floor(Math.random() * descriptors.length)
+      const citySeed = Math.floor(Math.random() * cities.length)
+      const price = Math.floor(Math.random() * 20) + 10;
+   
+      // seed data into campground
+      const camp = new Campground({
+        location: `${cities[citySeed].city}, ${cities[citySeed].state}`,
+        title: `${descriptors[descriptorsSeed]} ${places[placeSeed]}`,
+        imageUrl: await seedImg(),
+        description:
+          'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, nihil tempora vel aspernatur quod aliquam illum! Iste impedit odio esse neque veniam molestiae eligendi commodi minus, beatae accusantium, doloribus quo!',
+          price
+      })
+   
+      await camp.save()
+    }
+  }
 seedDB().then(()=>{
     mongoose.connection.close();
 })
