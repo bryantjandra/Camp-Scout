@@ -41,6 +41,7 @@ async function seedImg() {
    
       // seed data into campground
       const camp = new Campground({
+        author:"64a59e5293b36226bb354bfd",
         location: `${cities[citySeed].city}, ${cities[citySeed].state}`,
         title: `${descriptors[descriptorsSeed]} ${places[placeSeed]}`,
         imageUrl: await seedImg(),
