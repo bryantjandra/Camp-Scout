@@ -29,7 +29,6 @@ async function seedImg() {
       console.error(err)
     }
   }
-
   const seedDB = async () => {
     await Campground.deleteMany({})
     for (let i = 0; i < 20; i++) {
@@ -44,7 +43,20 @@ async function seedImg() {
         author:"64a59e5293b36226bb354bfd",
         location: `${cities[citySeed].city}, ${cities[citySeed].state}`,
         title: `${descriptors[descriptorsSeed]} ${places[placeSeed]}`,
-        imageUrl: await seedImg(),
+        imageUrl: [
+          {
+            url: 'https://res.cloudinary.com/ds665bpgo/image/upload/v1688738169/CampScout/ltmempqamcjf5e3xeuw7.png',
+            filename: 'CampScout/ltmempqamcjf5e3xeuw7',
+          },
+          {
+            url: 'https://res.cloudinary.com/ds665bpgo/image/upload/v1688738207/CampScout/wtvinuufb1pct0ws7gsf.png',
+            filename: 'CampScout/wtvinuufb1pct0ws7gsf',
+          },
+          {
+            url: 'https://res.cloudinary.com/ds665bpgo/image/upload/v1688738191/CampScout/sax1ydsvopndhkf3fwuz.png',
+            filename: 'CampScout/sax1ydsvopndhkf3fwuz',
+          }
+        ],
         description:
           'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, nihil tempora vel aspernatur quod aliquam illum! Iste impedit odio esse neque veniam molestiae eligendi commodi minus, beatae accusantium, doloribus quo!',
           price
