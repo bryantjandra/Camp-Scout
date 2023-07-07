@@ -59,7 +59,8 @@ async function seedImg() {
         ],
         description:
           'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, nihil tempora vel aspernatur quod aliquam illum! Iste impedit odio esse neque veniam molestiae eligendi commodi minus, beatae accusantium, doloribus quo!',
-          price
+          price,
+          geometry:{ type: 'Point', coordinates: [ -113.133115, 47.020078 ] },
       })
    
       await camp.save()
