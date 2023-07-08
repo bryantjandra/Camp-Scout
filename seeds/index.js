@@ -31,7 +31,7 @@ async function seedImg() {
   }
   const seedDB = async () => {
     await Campground.deleteMany({})
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 300; i++) {
       // setup
       const placeSeed = Math.floor(Math.random() * places.length)
       const descriptorsSeed = Math.floor(Math.random() * descriptors.length)
@@ -45,22 +45,22 @@ async function seedImg() {
         title: `${descriptors[descriptorsSeed]} ${places[placeSeed]}`,
         imageUrl: [
           {
-            url: 'https://res.cloudinary.com/ds665bpgo/image/upload/v1688738169/CampScout/ltmempqamcjf5e3xeuw7.png',
-            filename: 'CampScout/ltmempqamcjf5e3xeuw7',
+            url: 'https://res.cloudinary.com/ds665bpgo/image/upload/v1688794257/CampScout/jcfhrqa60m3jld2xuef7.jpg',
+            filename: 'CampScout/jcfhrqa60m3jld2xuef7',
           },
           {
-            url: 'https://res.cloudinary.com/ds665bpgo/image/upload/v1688738207/CampScout/wtvinuufb1pct0ws7gsf.png',
-            filename: 'CampScout/wtvinuufb1pct0ws7gsf',
-          },
-          {
-            url: 'https://res.cloudinary.com/ds665bpgo/image/upload/v1688738191/CampScout/sax1ydsvopndhkf3fwuz.png',
-            filename: 'CampScout/sax1ydsvopndhkf3fwuz',
+            url: 'https://res.cloudinary.com/ds665bpgo/image/upload/v1688794260/CampScout/fgxplahkbn8nkfp3e0fh.jpg',
+            filename: 'CampScout/fgxplahkbn8nkfp3e0fh',
           }
         ],
+      
         description:
           'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, nihil tempora vel aspernatur quod aliquam illum! Iste impedit odio esse neque veniam molestiae eligendi commodi minus, beatae accusantium, doloribus quo!',
           price,
-          geometry:{ type: 'Point', coordinates: [ -113.133115, 47.020078 ] },
+          geometry:{ type: 'Point', 
+          coordinates: [cities[citySeed].longitude,
+                        cities[citySeed].latitude,
+                          ]},
       })
    
       await camp.save()
