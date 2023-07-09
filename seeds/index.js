@@ -3,8 +3,9 @@ const mongoose = require("mongoose");
 const Campground = require("../models/campground");
 const {places, descriptors} = require("./seedHelpers.js");
 const axios = require("axios")
+const dbUrl = process.env.DB_URL;
 
-mongoose.connect('mongodb://127.0.0.1:27017/camp-scout',{
+mongoose.connect(dbUrl,{
     useNewUrlParser: true,
     useUnifiedTopology:true,
 });
@@ -31,7 +32,7 @@ async function seedImg() {
   }
   const seedDB = async () => {
     await Campground.deleteMany({})
-    for (let i = 0; i < 300; i++) {
+    for (let i = 0; i < 20; i++) {
       // setup
       const placeSeed = Math.floor(Math.random() * places.length)
       const descriptorsSeed = Math.floor(Math.random() * descriptors.length)
@@ -40,7 +41,7 @@ async function seedImg() {
    
       // seed data into campground
       const camp = new Campground({
-        author:"64a59e5293b36226bb354bfd",
+        author:"64aa5fb099c47140bf68185e",
         location: `${cities[citySeed].city}, ${cities[citySeed].state}`,
         title: `${descriptors[descriptorsSeed]} ${places[placeSeed]}`,
         imageUrl: [
