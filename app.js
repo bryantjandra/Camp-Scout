@@ -27,8 +27,11 @@ const mongoSanitize = require("express-mongo-sanitize")
 const userRoutes = require("./routes/users");
 const campgroundRoutes = require("./routes/campgrounds")
 const reviewRoutes = require("./routes/reviews")
+const {MongoStore} = require("connect-mongo");
+const MongoDBStore = require("connect-mongo")(session);
+const dbUrl = process.env.DB_URL || 'mongodb://127.0.0.1:27017/camp-scout'
 
-mongoose.connect('mongodb://127.0.0.1:27017/camp-scout',{
+mongoose.connect(dbUrl,{
     useNewUrlParser: true,
     useUnifiedTopology:true,
 });
@@ -93,10 +96,21 @@ app.use(
         },
     })
 );
+const secret = process.env.SECRET || "thisshouldbeabettersecret"
+const store = new MongoDBStore({
+    url:dbUrl,
+    secret,
+    touchAfter: 24*60*60
+})
+
+store.on("error", function(e){
+    console.log("SESSION STORE ERROR", e)
+})
 
 const sessionConfig = {
+    store,
     name:"session",
-    secret:"thisshouldbeabettersecret",
+    secret,
     resave:false,
     saveUninitialized:true,
     cookie:{
