@@ -31,7 +31,7 @@ A full-stack website application where users can create and review eclectic camp
 ## Design
 
 > HomePage
-> ![Screenshot](./public/assets/allcamp.png)
+> ![Screenshot](./public/assets/homepage.png)
 
 > All Campgrounds
 > ![Screenshot](./public/assets/allcamp.png)
@@ -40,4 +40,5 @@ A full-stack website application where users can create and review eclectic camp
 > ![Screenshot](./public/assets/singleshow.png)
 
 > Login & Register Page
+> 
 > ![Screenshot](./public/assets/loginregis.png)
